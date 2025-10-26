@@ -21,7 +21,7 @@ namespace Worker
                 var password = Environment.GetEnvironmentVariable("POSTGRES_PASSWORD") ?? "postgres";
                 var database = Environment.GetEnvironmentVariable("POSTGRES_DB") ?? "postgres";
                 
-                var connectionString = $"Server={host};Username={user};Password={password};Database={database}";
+                var connectionString = $"Server={host};Username={user};Password={password};Database={database};SSL Mode=Require;Trust Server Certificate=true";
                 var pgsql = OpenDbConnection(connectionString);
                 var redisConn = OpenRedisConnection("redis");
                 var redis = redisConn.GetDatabase();
@@ -75,7 +75,7 @@ namespace Worker
         private static NpgsqlConnection OpenDbConnection(string connectionString)
         {
             NpgsqlConnection connection;
-
+            
             while (true)
             {
                 try
