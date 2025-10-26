@@ -2,6 +2,7 @@ name: Build Worker
 # template source: https://github.com/dockersamples/.github/blob/main/templates/call-docker-build.yaml
 
 on:
+  workflow_dispatch:
   # we want pull requests so we can build(test) but not push to image registry
   push:
     branches:
@@ -51,8 +52,8 @@ jobs:
       ### A list of the account/repo names for docker build. List should match what's enabled above
       ### defaults to:
       image-names: |
-        ghcr.io/dockersamples/example-voting-app-worker
-        dockersamples/examplevotingapp_worker
+        ghcr.io/${{ github.repository_owner }}/example-voting-app-worker
+        docker.io/${{ secrets.DOCKERHUB_USERNAME }}/example-voting-app-worker
       
       ### REQUIRED set rules for tagging images, based on special action syntax:
       ### https://github.com/docker/metadata-action#tags-input
